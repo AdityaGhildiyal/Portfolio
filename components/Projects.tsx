@@ -9,21 +9,21 @@ const projects = [
     description: "I made a chatbot in NextJs with OpenAI API and a custom API to interact with the model.",
     image: "/Project1.png?height=300&width=400",
     github: "https://github.com/AdityaGhildiyal/ChatBot-GEHUCollege",
-    live: "https://project1.com",
+    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
   },
   {
     title: "ERP Cell",
     description: "Made a custom ERP system in NextJs with a custom API to interact with the teacher and the student models.",
     image: "/Project2.png?height=300&width=400",
     github: "https://github.com/AdityaGhildiyal/Attendance_react-nextjs",
-    live: "https://project2.com",
+    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
   },
   {
     title: "PathFinding Website",
     description: "A website for a pathfinding algorithm implemented in NextJS using MapLibreGL.Implemented using the A* and Dijkstra algorithm.",
     image: "/Project3.png?height=300&width=400",
     github: "https://gitlab.com/collegeprojects3461408/daa-4thsemester/-/tree/main/pathvisualization?ref_type=heads",
-    live: "https://project3.com",
+    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
   },
 ]
 
