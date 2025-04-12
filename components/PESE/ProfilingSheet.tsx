@@ -121,9 +121,6 @@ export default function ProfilingSheet() {
           {/* Increased from text-xl to text-2xl */}
           <p className="text-[#bbb] text-base">
             {" "}
-            {/* Increased from text-sm to text-base */}
-            This profiling sheet consists of 20 questions designed to help you reflect on your personal and professional
-            development. Each question requires a video response.
           </p>
         </div>
         <div className="space-y-8">
