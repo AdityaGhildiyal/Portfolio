@@ -14,8 +14,6 @@ export default function MovieReview() {
           </h2>
           <p className="text-[#bbb] text-base">
             {" "}
-            {/* Increased from text-sm to text-base */}
-            Watch the movie and answer the following questions with both written and video responses.
           </p>
         </div>
         <div className="space-y-8">
