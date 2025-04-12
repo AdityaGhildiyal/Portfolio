@@ -42,7 +42,7 @@ export default function Header() {
       <header className="fixed w-full z-10 bg-background/80 backdrop-blur-sm border-b border-gray-800">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold text-primary">
-            Addy
+            AG
           </Link>
           <nav className="hidden md:flex space-x-6">
             <NavLink href="#about">About</NavLink>

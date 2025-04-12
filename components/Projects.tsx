@@ -20,10 +20,38 @@ const projects = [
   },
   {
     title: "PathFinding Website",
-    description: "A website for a pathfinding algorithm implemented in NextJS using MapLibreGL.Implemented using the A* and Dijkstra algorithm.",
+    description: "A website for a pathfinding algorithm implemented in NextJS using MapLibreGL. Implemented using the A* and Dijkstra algorithm.",
     image: "/Project3.png?height=300&width=400",
     github: "https://gitlab.com/collegeprojects3461408/daa-4thsemester/-/tree/main/pathvisualization?ref_type=heads",
     live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
+  },
+  {
+    title: "MST-TSP Route Optimization",
+    description: "An optimization project to solve MST and TSP using graph theory and algorithms.",
+    image: "/Project4.png?height=300&width=400",
+    github: "https://github.com/AdityaGhildiyal/MST-CityCalculator",
+    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
+  },
+  {
+    title: "Minesweeper",
+    description: "A classic Minesweeper game built using React and deployed on Vercel.",
+    image: "/Project5.png?height=300&width=400",
+    github: "https://github.com/AdityaGhildiyal/Minesweeper",
+    live: "https://minesweeper-addyg.vercel.app/",
+  },
+  {
+    title: "Voice Authentication Lock",
+    description: "A voice-based authentication system for secure access control using ML techniques.",
+    image: "/Project6.png?height=300&width=400",
+    github: "https://github.com/AdityaGhildiyal/VoiceAuth",
+    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
+  },
+  {
+    title: "Tournament Fixture Display",
+    description: "A tournament generator supporting Knockout, Round Robin, and Hybrid formats. Built with Next.js.",
+    image: "/Project7.png?height=300&width=400",
+    github: "https://gitlab.com/AdityaG05/tourneygen",
+    live: "https://v0-dark-theme-ui-design.vercel.app/",
   },
 ]
 
@@ -40,7 +68,6 @@ export default function Projects() {
               key={index}
               className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-700"
             >
-              {/* Image with onClick */}
               <Image
                 src={project.image || "/placeholder.svg"}
                 alt={project.title}
@@ -78,14 +105,12 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Modal */}
       {selectedImage && (
         <div
           className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative p-4">
-            {/* Close Button */}
             <button
               className="absolute top-2 right-2 bg-gray-800 text-white p-2 rounded-full"
               onClick={(e) => {
@@ -95,7 +120,6 @@ export default function Projects() {
             >
               <X size={24} />
             </button>
-            {/* Expanded Image */}
             <Image
               src={selectedImage}
               alt="Expanded Project"
