@@ -3,10 +3,6 @@
 import type React from "react"
 import { Mail, Linkedin, Github, Twitter, Send } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
-import emailjs from '@emailjs/browser'
-
-// Initialize EmailJS
-emailjs.init('heUxr2XqM1AxhvMo6')
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -30,22 +26,19 @@ export default function Contact() {
     setIsSending(true)
 
     try {
-      const serviceId = 'service_1ynbfu3'
-      const templateId = 'template_tghe5lq'
-      const publicKey = 'heUxr2XqM1AxhvMo6'
-
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: formState.name,
-          from_email: formState.email,
-          message: formState.message,
-          title: 'Contact Form Submission',
-          to_email: 'adityaghildiyal50@gmail.com'
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        publicKey
-      )
+        body: JSON.stringify(formState),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send message')
+      }
 
       setFormState({
         name: "",
@@ -53,11 +46,10 @@ export default function Contact() {
         message: "",
       })
       
-      // Show success message
       alert("Message sent successfully!")
-    } catch (error) {
-      console.error('Error sending email:', error)
-      alert("Failed to send message. Please try again later.")
+    } catch (error: any) {
+      console.error('Error sending message:', error)
+      alert(error.message || "Failed to send message. Please try again later.")
     } finally {
       setIsSending(false)
     }
