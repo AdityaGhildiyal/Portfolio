@@ -3,10 +3,15 @@
 import type React from "react"
 import { Mail, Linkedin, Github, Twitter, Send } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import emailjs from '@emailjs/browser'
+
+// Initialize EmailJS
+emailjs.init('3yRozoRRjNTU_knZg_PDV')
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [isSending, setIsSending] = useState(false)
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -20,18 +25,42 @@ export default function Contact() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Form submission logic would go here
-    console.log("Form submitted:", formState)
-    // Reset form
-    setFormState({
-      name: "",
-      email: "",
-      message: "",
-    })
-    // Show success message
-    alert("Message sent! (This is a demo)")
+    setIsSending(true)
+
+    try {
+      const serviceId = 'service_1ynbfu3'
+      const templateId = 'template_tghe5lq'
+      const publicKey = 'heUxr2XqM1AxhvMo6'
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formState.name,
+          from_email: formState.email,
+          message: formState.message,
+          title: 'Contact Form Submission',
+          to_email: 'adityaghildiyal50@gmail.com'
+        },
+        publicKey
+      )
+
+      setFormState({
+        name: "",
+        email: "",
+        message: "",
+      })
+      
+      // Show success message
+      alert("Message sent successfully!")
+    } catch (error) {
+      console.error('Error sending email:', error)
+      alert("Failed to send message. Please try again later.")
+    } finally {
+      setIsSending(false)
+    }
   }
 
   useEffect(() => {
@@ -134,9 +163,13 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="w-full bg-transparent hover:bg-[#50fa7b] text-[#50fa7b] hover:text-[#121212] font-mono py-3 px-6 border border-[#50fa7b] hover:border-transparent transition-all duration-300 flex items-center justify-center"
+              disabled={isSending}
+              className={`w-full bg-transparent hover:bg-[#50fa7b] text-[#50fa7b] hover:text-[#121212] font-mono py-3 px-6 border border-[#50fa7b] hover:border-transparent transition-all duration-300 flex items-center justify-center ${
+                isSending ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
-              <Send className="mr-2" size={18} />$ SEND_MESSAGE
+              <Send className="mr-2" size={18} />
+              {isSending ? '$ SENDING...' : '$ SEND_MESSAGE'}
             </button>
           </form>
 
