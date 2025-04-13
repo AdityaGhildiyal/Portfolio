@@ -1,8 +1,8 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { JetBrains_Mono } from "next/font/google"
-import "../globals.css"
 
+// Import only what's needed for PESE, not the global CSS
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -16,8 +16,8 @@ export default function PESELayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${jetbrainsMono.className} overflow-hidden bg-[#121212] text-[#f8f8f2]`}>{children}</body>
-    </html>
+    <div className={`pese-container ${jetbrainsMono.className} bg-[#121212] text-[#f8f8f2]`}>
+      {children}
+    </div>
   )
 }

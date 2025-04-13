@@ -117,3 +117,17 @@
   background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
 }
 
+/* Pese container styles */
+.pese-container {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Reset styles when leaving Pese section */
+body:not(.pese-container) {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+

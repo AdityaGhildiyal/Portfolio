@@ -4,20 +4,22 @@ import type React from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
-import PESEEntry from "@/components/PESE/PESEEntry"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [showPESE, setShowPESE] = useState(false)
 
   useEffect(() => {
     const handleScroll = (e: Event) => {
-      e.preventDefault()
       const target = e.target as HTMLAnchorElement
-      const targetId = target.getAttribute("href")?.substring(1)
-      const targetElement = document.getElementById(targetId || "")
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth" })
+      const targetId = target.getAttribute("href")
+
+      // Only handle smooth scrolling for hash links
+      if (targetId && targetId.startsWith("#")) {
+        e.preventDefault()
+        const targetElement = document.getElementById(targetId.substring(1))
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth" })
+        }
       }
     }
 
@@ -33,16 +35,12 @@ export default function Header() {
     }
   }, [])
 
-  const handlePESEClick = () => {
-    setShowPESE(true)
-  }
-
   return (
     <>
       <header className="fixed w-full z-10 bg-background/80 backdrop-blur-sm border-b border-gray-800">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold text-primary">
-            AG
+            Addy
           </Link>
           <nav className="hidden md:flex space-x-6">
             <NavLink href="#about">About</NavLink>
@@ -50,12 +48,12 @@ export default function Header() {
             <NavLink href="#skills">Skills</NavLink>
             <NavLink href="#projects">Projects</NavLink>
             <NavLink href="#contact">Contact</NavLink>
-            <button
-              onClick={handlePESEClick}
+            <Link
+              href="/pese"
               className="text-primary hover:text-gray-400 transition-colors duration-300 font-semibold"
             >
               PESE 400
-            </button>
+            </Link>
           </nav>
           <button className="md:hidden text-primary" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -78,20 +76,16 @@ export default function Header() {
             <NavLink href="#contact" onClick={() => setIsMenuOpen(false)}>
               Contact
             </NavLink>
-            <button
-              onClick={() => {
-                setIsMenuOpen(false)
-                handlePESEClick()
-              }}
+            <Link
+              href="/pese"
               className="text-primary hover:text-gray-400 transition-colors duration-300 font-semibold"
+              onClick={() => setIsMenuOpen(false)}
             >
               PESE 400
-            </button>
+            </Link>
           </nav>
         )}
       </header>
-
-      {showPESE && <PESEEntry onClose={() => setShowPESE(false)} />}
     </>
   )
 }
