@@ -11,7 +11,7 @@ const projects = [
     description: "I made a chatbot in NextJs with OpenAI API and a custom API to interact with the model.",
     image: "/Project1.png?height=300&width=400",
     github: "https://github.com/AdityaGhildiyal/ChatBot-GEHUCollege",
-    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
+    live: "https://deployement-page.vercel.app/",
   },
   {
     title: "ERP Cell",
@@ -19,7 +19,7 @@ const projects = [
       "Made a custom ERP system in NextJs with a custom API to interact with the teacher and the student models.",
     image: "/Project2.png?height=300&width=400",
     github: "https://github.com/AdityaGhildiyal/Attendance_react-nextjs",
-    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
+    live: "https://deployement-page.vercel.app/",
   },
   {
     title: "PathFinding Website",
@@ -27,14 +27,14 @@ const projects = [
       "A website for a pathfinding algorithm implemented in NextJS using MapLibreGL. Implemented using the A* and Dijkstra algorithm.",
     image: "/Project3.png?height=300&width=400",
     github: "https://gitlab.com/collegeprojects3461408/daa-4thsemester/-/tree/main/pathvisualization?ref_type=heads",
-    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
+    live: "https://deployement-page.vercel.app/",
   },
   {
     title: "MST-TSP Route Optimization",
     description: "An optimization project to solve MST and TSP using graph theory and algorithms.",
     image: "/Project4.png?height=300&width=400",
     github: "https://github.com/AdityaGhildiyal/MST-CityCalculator",
-    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
+    live: "https://deployement-page.vercel.app/",
   },
   {
     title: "Minesweeper",
@@ -48,7 +48,7 @@ const projects = [
     description: "A voice-based authentication system for secure access control using ML techniques.",
     image: "/Project6.png?height=300&width=400",
     github: "https://github.com/AdityaGhildiyal/VoiceAuth",
-    live: "https://deployement-page-dsxgwynu6-addyg.vercel.app/",
+    live: "https://deployement-page.vercel.app/",
   },
   {
     title: "Tournament Fixture Display",
