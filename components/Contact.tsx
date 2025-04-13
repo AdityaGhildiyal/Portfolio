@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react"
 import emailjs from '@emailjs/browser'
 
 // Initialize EmailJS
-emailjs.init('3yRozoRRjNTU_knZg_PDV')
+emailjs.init('heUxr2XqM1AxhvMo6')
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
