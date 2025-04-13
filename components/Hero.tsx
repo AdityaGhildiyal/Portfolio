@@ -1,96 +1,106 @@
 "use client"
 
 import type React from "react"
-
-import { useEffect, useRef, useState } from "react"
 import { ArrowRight } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 
 export default function Hero() {
-  const gridRef = useRef<HTMLDivElement>(null)
-  const [isHovering, setIsHovering] = useState(false)
-  const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 })
+  const serverGridRef = useRef<HTMLDivElement>(null)
+  const [activeServer, setActiveServer] = useState<number | null>(null)
 
-  // Create grid lines
+  // Create server grid
   useEffect(() => {
-    if (!gridRef.current) return
+    if (!serverGridRef.current) return
 
-    // Create horizontal lines
-    for (let i = 0; i < 20; i++) {
-      const line = document.createElement("div")
-      line.className = "grid-line grid-line-horizontal"
-      line.style.top = `${i * 5}%`
-      gridRef.current.appendChild(line)
-    }
+    // Clear existing servers
+    serverGridRef.current.innerHTML = ""
 
-    // Create vertical lines
-    for (let i = 0; i < 20; i++) {
-      const line = document.createElement("div")
-      line.className = "grid-line grid-line-vertical"
-      line.style.left = `${i * 5}%`
-      gridRef.current.appendChild(line)
+    // Create servers
+    for (let i = 0; i < 64; i++) {
+      const server = document.createElement("div")
+      server.className = "server"
+      server.dataset.index = i.toString()
+
+      // Create LEDs
+      for (let j = 0; j < 3; j++) {
+        const led = document.createElement("div")
+        led.className = "led"
+        server.appendChild(led)
+      }
+
+      serverGridRef.current.appendChild(server)
     }
   }, [])
 
-  // Handle mouse movement for grid glow effect
+  // Handle mouse movement for server grid
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!gridRef.current) return
+    if (!serverGridRef.current) return
 
-    const rect = gridRef.current.getBoundingClientRect()
+    const servers = serverGridRef.current.querySelectorAll(".server")
+    const rect = serverGridRef.current.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
 
-    setIsHovering(true)
-    setHoverPosition({ x, y })
-  }
+    let closestServer = null
+    let closestDistance = Number.POSITIVE_INFINITY
 
-  const handleMouseLeave = () => {
-    setIsHovering(false)
-  }
+    servers.forEach((server, index) => {
+      const serverRect = server.getBoundingClientRect()
+      const serverX = serverRect.left - rect.left + serverRect.width / 2
+      const serverY = serverRect.top - rect.top + serverRect.height / 2
 
-  // Apply glow effect to grid lines
-  useEffect(() => {
-    if (!gridRef.current || !isHovering) return
+      const distance = Math.hypot(x - serverX, y - serverY)
 
-    const lines = gridRef.current.querySelectorAll(".grid-line")
-    lines.forEach((line) => {
-      const lineRect = line.getBoundingClientRect()
-      const gridRect = gridRef.current!.getBoundingClientRect()
-
-      // Calculate distance from mouse to line
-      let distance = 0
-      if (line.classList.contains("grid-line-horizontal")) {
-        const lineY = lineRect.top - gridRect.top + lineRect.height / 2
-        distance = Math.abs(hoverPosition.y - lineY)
-      } else {
-        const lineX = lineRect.left - gridRect.left + lineRect.width / 2
-        distance = Math.abs(hoverPosition.x - lineX)
-      }
-
-      // Apply glow based on distance
-      const maxDistance = 100
-      if (distance < maxDistance) {
-        const intensity = 1 - distance / maxDistance
-        const glow = `0 0 ${intensity * 10}px rgba(80, 250, 123, ${intensity * 0.8})`
-        line.setAttribute(
-          "style",
-          `${line.getAttribute("style")}; box-shadow: ${glow}; background-color: rgba(80, 250, 123, ${0.1 + intensity * 0.4});`,
-        )
-      } else {
-        line.setAttribute(
-          "style",
-          `${line.getAttribute("style")}; box-shadow: none; background-color: rgba(80, 250, 123, 0.1);`,
-        )
+      if (distance < closestDistance) {
+        closestDistance = distance
+        closestServer = index
       }
     })
-  }, [isHovering, hoverPosition])
+
+    setActiveServer(closestServer)
+  }
+
+  // Update active server
+  useEffect(() => {
+    if (!serverGridRef.current) return
+
+    const servers = serverGridRef.current.querySelectorAll(".server")
+    servers.forEach((server, index) => {
+      if (index === activeServer) {
+        server.classList.add("active")
+      } else {
+        server.classList.remove("active")
+      }
+    })
+  }, [activeServer])
+
+  // Add floating icons
+  const floatingIcons = [
+    { emoji: "💾", top: "20%", left: "20%" },
+    { emoji: "🔌", top: "70%", left: "70%" },
+    { emoji: "☁️", top: "30%", right: "20%" },
+  ]
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#121212]">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#121212]" onMouseMove={handleMouseMove}>
       <div className="scanline"></div>
-      <div ref={gridRef} className="grid-lines" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}></div>
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#121212] to-[#1a1a1a] opacity-80"></div>
-      </div>
+      <div ref={serverGridRef} className="server-grid"></div>
+
+      {floatingIcons.map((icon, index) => (
+        <div
+          key={index}
+          className="floating-icon"
+          style={{
+            top: icon.top,
+            left: icon.left,
+            right: icon.right,
+            animationDelay: `${index * 0.5}s`,
+          }}
+        >
+          {icon.emoji}
+        </div>
+      ))}
+
       <div className="container mx-auto px-4 z-10 text-center">
         <div className="mb-2 inline-block px-3 py-1 border border-[#333] bg-[#1a1a1a] text-[#50fa7b] text-sm font-mono animate-fade-in-up">
           $ ./welcome.sh

@@ -58,6 +58,16 @@
   --ring: 0 0% 83.1%;
 }
 
+/* Remove grid styles */
+/* Grid styles */
+.grid-lines {
+  display: none;
+}
+
+.grid-block {
+  display: none;
+}
+
 /* Animations */
 @keyframes fadeInUp {
   from {
@@ -275,17 +285,6 @@
 }
 
 /* Grid lines for hero section */
-.grid-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
 .grid-line {
   position: absolute;
   background-color: rgba(80, 250, 123, 0.1);
