@@ -225,7 +225,6 @@ function ProfilingSheet() {
   )
 }
 
-// Include the MovieReview component directly in this file
 function MovieReview() {
   return (
     <div className="w-full p-6 md:p-8 font-mono">

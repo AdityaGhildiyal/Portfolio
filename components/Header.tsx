@@ -2,14 +2,23 @@
 
 import type React from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Terminal } from "lucide-react"
 import { useState, useEffect } from "react"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = (e: Event) => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
+
+    const handleSmoothScroll = (e: Event) => {
       const target = e.target as HTMLAnchorElement
       const targetId = target.getAttribute("href")
 
@@ -19,28 +28,37 @@ export default function Header() {
         const targetElement = document.getElementById(targetId.substring(1))
         if (targetElement) {
           targetElement.scrollIntoView({ behavior: "smooth" })
+          setIsMenuOpen(false)
         }
       }
     }
 
     const links = document.querySelectorAll('a[href^="#"]')
     links.forEach((link) => {
-      link.addEventListener("click", handleScroll)
+      link.addEventListener("click", handleSmoothScroll)
     })
+
+    window.addEventListener("scroll", handleScroll)
 
     return () => {
       links.forEach((link) => {
-        link.removeEventListener("click", handleScroll)
+        link.removeEventListener("click", handleSmoothScroll)
       })
+      window.removeEventListener("scroll", handleScroll)
     }
   }, [])
 
   return (
     <>
-      <header className="fixed w-full z-10 bg-background/80 backdrop-blur-sm border-b border-gray-800">
+      <header
+        className={`fixed w-full z-50 transition-all duration-300 ${
+          scrolled ? "bg-[#121212]/90 backdrop-blur-md border-b border-[#333]" : "bg-transparent"
+        }`}
+      >
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-primary">
-            Addy
+          <Link href="/" className="text-2xl font-bold text-[#50fa7b] font-mono flex items-center">
+            <Terminal className="mr-2" size={20} />
+            AG
           </Link>
           <nav className="hidden md:flex space-x-6">
             <NavLink href="#about">About</NavLink>
@@ -48,19 +66,16 @@ export default function Header() {
             <NavLink href="#skills">Skills</NavLink>
             <NavLink href="#projects">Projects</NavLink>
             <NavLink href="#contact">Contact</NavLink>
-            <Link
-              href="/pese"
-              className="text-primary hover:text-gray-400 transition-colors duration-300 font-semibold"
-            >
-              PESE 400
+            <Link href="/pese" className="text-[#bd93f9] hover:text-[#50fa7b] transition-colors duration-300 font-mono">
+              PESE_400
             </Link>
           </nav>
-          <button className="md:hidden text-primary" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button className="md:hidden text-[#f8f8f2]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
         {isMenuOpen && (
-          <nav className="md:hidden flex flex-col items-center py-4 space-y-4 bg-background border-t border-gray-800">
+          <nav className="md:hidden flex flex-col items-center py-4 space-y-4 bg-[#121212] border-t border-[#333]">
             <NavLink href="#about" onClick={() => setIsMenuOpen(false)}>
               About
             </NavLink>
@@ -78,10 +93,10 @@ export default function Header() {
             </NavLink>
             <Link
               href="/pese"
-              className="text-primary hover:text-gray-400 transition-colors duration-300 font-semibold"
+              className="text-[#bd93f9] hover:text-[#50fa7b] transition-colors duration-300 font-mono"
               onClick={() => setIsMenuOpen(false)}
             >
-              PESE 400
+              PESE_400
             </Link>
           </nav>
         )}
@@ -92,7 +107,11 @@ export default function Header() {
 
 function NavLink({ href, children, onClick }: { href: string; children: React.ReactNode; onClick?: () => void }) {
   return (
-    <Link href={href} className="text-primary hover:text-gray-400 transition-colors duration-300" onClick={onClick}>
+    <Link
+      href={href}
+      className="text-[#f8f8f2] hover:text-[#50fa7b] transition-colors duration-300 font-mono"
+      onClick={onClick}
+    >
       {children}
     </Link>
   )

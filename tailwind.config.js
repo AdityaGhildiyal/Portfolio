@@ -56,6 +56,18 @@ module.exports = {
           800: "#808080",
           900: "#6f6f6f",
         },
+        // Cyberpunk theme colors
+        cyber: {
+          green: "#50fa7b",
+          blue: "#8be9fd",
+          purple: "#bd93f9",
+          pink: "#ff79c6",
+          yellow: "#f1fa8c",
+          bg: "#121212",
+          surface: "#1a1a1a",
+          border: "#333",
+          text: "#f8f8f2",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -64,9 +76,18 @@ module.exports = {
       },
       animation: {
         "fade-in-up": "fadeInUp 0.6s ease-out forwards",
+        "fade-in": "fadeIn 1s ease-out forwards",
+        float: "float 4s ease-in-out infinite",
+        pulse: "pulse 2s infinite",
+        glow: "glow 2s infinite",
+        typing: "typing 3.5s steps(40, end)",
+        blink: "blink 1s infinite alternate",
+        scanline: "scanline 8s linear infinite",
+      },
+      fontFamily: {
+        mono: ["JetBrains Mono", "monospace"],
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
 }
-
