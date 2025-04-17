@@ -115,7 +115,7 @@ export default function Contact() {
                 name="name"
                 value={formState.name}
                 onChange={handleChange}
-                className="w-full bg-[#252525] border border-[#333] p-3 text-[#f8f8f2] font-mono focus:border-[#50fa7b] focus:outline-none"
+                className="w-full bg-[#252525] border border-[#333] p-3 text-[#f8f8f2] font-mono focus:border-[#50fa7b] focus:outline-none placeholder:opacity-50"
                 placeholder="Aditya Ghildiyal"
                 required
               />
@@ -131,7 +131,7 @@ export default function Contact() {
                 name="email"
                 value={formState.email}
                 onChange={handleChange}
-                className="w-full bg-[#252525] border border-[#333] p-3 text-[#f8f8f2] font-mono focus:border-[#50fa7b] focus:outline-none"
+                className="w-full bg-[#252525] border border-[#333] p-3 text-[#f8f8f2] font-mono focus:border-[#50fa7b] focus:outline-none placeholder:opacity-50"
                 placeholder="adityaghildiyal@proton.me"
                 required
               />
@@ -147,7 +147,7 @@ export default function Contact() {
                 value={formState.message}
                 onChange={handleChange}
                 rows={5}
-                className="w-full bg-[#252525] border border-[#333] p-3 text-[#f8f8f2] font-mono focus:border-[#50fa7b] focus:outline-none"
+                className="w-full bg-[#252525] border border-[#333] p-3 text-[#f8f8f2] font-mono focus:border-[#50fa7b] focus:outline-none placeholder:opacity-50"
                 placeholder="Your message here..."
                 required
               ></textarea>
